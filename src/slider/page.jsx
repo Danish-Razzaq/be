@@ -340,7 +340,7 @@ export default function ErpPitchDeck() {
             alignItems: "center",
           }}
         >
-          <img src="images/logo.png" alt="Logo" className="h-12" />
+          <img src="images/logo.png" alt="Logo" className="h-16" />
         </div>
 
         {SLIDES.map((s, idx) => (
@@ -444,8 +444,8 @@ export default function ErpPitchDeck() {
                       style={{
                         padding: 16,
                         borderRadius: 12,
-                        background: "rgba(255,255,255,0.02)",
                       }}
+                      className="bg-gray-500/35"
                     >
                       <div style={{ fontWeight: 800 }}>Foundation</div>
                       <div style={{ marginTop: 6 }}>
@@ -456,8 +456,8 @@ export default function ErpPitchDeck() {
                       style={{
                         padding: 16,
                         borderRadius: 12,
-                        background: "rgba(255,255,255,0.02)",
                       }}
+                      className="bg-gray-500/35"
                     >
                       <div style={{ fontWeight: 800 }}>Growth</div>
                       <div style={{ marginTop: 6 }}>
@@ -468,8 +468,8 @@ export default function ErpPitchDeck() {
                       style={{
                         padding: 16,
                         borderRadius: 12,
-                        background: "rgba(255,255,255,0.02)",
                       }}
+                      className="bg-gray-500/35"
                     >
                       <div style={{ fontWeight: 800 }}>Enterprise</div>
                       <div style={{ marginTop: 6 }}>
@@ -481,7 +481,7 @@ export default function ErpPitchDeck() {
 
                 {s.id === "revenue" && (
                   <div style={{ marginTop: 20 }}>
-                    <div style={{ color: "#94a3b8", marginBottom: 8 }}>
+                    <div style={{ color: "white", marginBottom: 8 }}>
                       {s.subtitle}
                     </div>
                     <div
@@ -500,7 +500,7 @@ export default function ErpPitchDeck() {
                           gap: 8,
                         }}
                       >
-                        <div style={{ color: "#9ca3af", fontSize: 14 }}>
+                        <div style={{ color: "white", fontSize: 14 }}>
                           Active member companies
                         </div>
                         <input
@@ -534,7 +534,7 @@ export default function ErpPitchDeck() {
                           minWidth: window.innerWidth < 768 ? "100%" : 260,
                         }}
                       >
-                        <div style={{ color: "#94a3b8", fontSize: 13 }}>
+                        <div style={{ color: "white", fontSize: 13 }}>
                           Projected association revenue
                         </div>
                         <div
@@ -547,13 +547,13 @@ export default function ErpPitchDeck() {
                         >
                           ${displayed.toLocaleString()}
                         </div>
-                        <div style={{ marginTop: 6, color: "#9ca3af" }}>
+                        <div style={{ marginTop: 6, color: "white" }}>
                           /month • ${(displayed * 12).toLocaleString()}/year
                         </div>
                         <div
                           style={{
                             marginTop: 12,
-                            color: "#cbd5e1",
+                            color: "white",
                             fontSize: 13,
                           }}
                         >
@@ -634,7 +634,7 @@ export default function ErpPitchDeck() {
                 width: active === i ? (window.innerWidth < 768 ? 48 : 72) : 12,
                 height: 12,
                 borderRadius: active === i ? 999 : 6,
-                background: active === i ? "#7c3aed" : "RGB(198 236 224)",
+                background: active === i ? "#7c3aed" : "#79E7F3",
                 transition: "all 240ms ease",
                 border: "none",
                 cursor: "pointer",
@@ -649,7 +649,7 @@ export default function ErpPitchDeck() {
       <style jsx>{`
         .scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: #7c3aed transparent;
+          scrollbar-color: #34d399 transparent;
         }
 
         .scrollbar::-webkit-scrollbar {
