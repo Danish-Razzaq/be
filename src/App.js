@@ -1,10 +1,12 @@
 import React from 'react'
 import HeroSection from './HeroSection'
 import Slider from './slider/page'
+import DarkVeil from './Components/DarkVeil/DarkVeil'
 
 const App = () => {
   return (
-    <div>
+   <div >
+  {/* <DarkVeil /> */}
       {/* <HeroSection /> */}
       <Slider />
     </div>

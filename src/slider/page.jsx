@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useCallback,
+} from "react";
 import { motion } from "framer-motion";
 import ScrollStack, {
   ScrollStackItem,
 } from "../Components/ScrollStack/ScrollStack";
-
+import DarkVeilLocal from "../Components/DarkVeil/DarkVeil";
 /**
  * ErpPitchDeck — final stable single-file implementation
  * - No external reactbits imports or dynamic CDN fetches (avoids sandbox fetch errors)
@@ -47,6 +53,7 @@ const SLIDES = [
       "Members own their data and can export it anytime",
     ],
     placeholder: "[Screenshot placeholder — Security & Settings]",
+    img: "/images/owner.png",
   },
   {
     id: "commercials",
@@ -56,12 +63,16 @@ const SLIDES = [
       "Growth: tiered pricing + onboarding",
       "Enterprise: dedicated instance & SLAs",
     ],
+    placeholder: "[Screenshot placeholder — Pricing Tiers]",
+    img: "/images/Commercial.png",
   },
   {
     id: "revenue",
     title: "Instant Revenue Estimator",
     subtitle:
       "Drag to estimate members and see the monthly and yearly revenue (association gross).",
+    placeholder: "[Screenshot placeholder — Instant Revenue Estimator]",
+    img: "/images/Revenue.png",
   },
   {
     id: "pilot",
@@ -69,6 +80,7 @@ const SLIDES = [
     subtitle:
       "We co-brand, onboard 5–10 members, and publish adoption metrics. No long-term lock-in.",
     placeholder: "[Screenshot placeholder — Pilot Dashboard]",
+    img: "/images/pilot.png",
   },
 ];
 
@@ -79,7 +91,7 @@ const FEATURES = [
     association:
       "Members gain accurate books; association shows clear ROI through subscription revenue.",
     placeholder: "[Screenshot: Invoices & Ledger]",
-    img: "/images/hero_image.png",
+    img: "/images/Finance&Billing.png",
   },
   {
     title: "CRM & Sales",
@@ -95,7 +107,7 @@ const FEATURES = [
     member: "Stock control, order management, and shipment visibility.",
     association: "Operational efficiency reduces churn and support load.",
     placeholder: "[Screenshot: Stock & Orders]",
-    img: "/images/hero_image.png",
+    img: "/images/helpingdesk.png",
   },
   {
     title: "People & Payroll",
@@ -103,7 +115,7 @@ const FEATURES = [
     association:
       "Compliance becomes simpler for members, strengthening trust in your benefits.",
     placeholder: "[Screenshot: Payroll & HR]",
-    img: "/images/hero_image.png",
+    img: "/images/payroll.png",
   },
   {
     title: "Reports & Insights",
@@ -111,194 +123,95 @@ const FEATURES = [
     association:
       "Anonymized benchmarks create exclusive association-level insights you can publish.",
     placeholder: "[Screenshot: Dashboards & Benchmarks]",
-    img: "/images/hero_image.png",
+    img: "/images/Reports&Insights.png",
   },
 ];
 
 /* Local DarkVeil: subtle, readable, and not dependent on external libs */
-function DarkVeilLocal() {
-  return (
-    <div aria-hidden style={{ position: "fixed", inset: 0, zIndex: -2 }}>
-      <div
-        style={{
-          position: "absolute",
-          left: -160,
-          top: -160,
-          width: 520,
-          height: 520,
-          borderRadius: 9999,
-          filter: "blur(90px)",
-          background:
-            "radial-gradient(circle at 30% 30%, rgba(124,58,237,0.16), rgba(99,102,241,0))",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          right: -140,
-          bottom: -140,
-          width: 520,
-          height: 520,
-          borderRadius: 9999,
-          filter: "blur(84px)",
-          background:
-            "radial-gradient(circle at 70% 70%, rgba(14,165,233,0.12), rgba(99,102,241,0))",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(3,7,18,0.82)",
-        }}
-      />
-    </div>
-  );
-}
-
-/* Simple BrowserFrame to present screenshots or placeholders */
-function BrowserFrame({ label, children }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: 560,
-        borderRadius: 14,
-        padding: 16,
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))",
-        border: "1px solid rgba(255,255,255,0.04)",
-        boxShadow: "0 20px 40px rgba(2,6,23,0.6)",
-      }}
-    >
-      <div
-        style={{
-          height: 10,
-          display: "flex",
-          gap: 8,
-          alignItems: "center",
-          marginBottom: 8,
-        }}
-      >
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: 10,
-            background: "#ff5f56",
-          }}
-        />
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: 10,
-            background: "#ffbd2e",
-          }}
-        />
-        <div
-          style={{
-            width: 10,
-            height: 10,
-            borderRadius: 10,
-            background: "#27c93f",
-          }}
-        />
-        <div
-          style={{
-            marginLeft: 12,
-            color: "rgba(255,255,255,0.7)",
-            fontSize: 12,
-          }}
-        >
-          {label || "portal.example"}
-        </div>
-      </div>
-      <div
-        style={{ padding: 16, color: "rgba(255,255,255,0.95)", minHeight: 160 }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-/* Local ScrollStack: reveals a vertical list of feature cards with subtle animation */
-// function ScrollStackLocal({ items }) {
+// function DarkVeilLocal() {
 //   return (
-//     <div style={{ display: "grid", gap: 18 }}>
-//       {items.map((it, i) => (
-//         <motion.div
-//           key={i}
-//           initial={{ opacity: 0, y: 28, scale: 0.995 }}
-//           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-//           viewport={{ once: true, amount: 0.3 }}
-//           transition={{ duration: 0.6, delay: i * 0.04 }}
-//           style={{
-//             background: "linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01))",
-//             padding: 18,
-//             borderRadius: 12,
-//             boxShadow: "0 12px 30px rgba(2,6,23,0.6)",
-//             border: "1px solid rgba(255,255,255,0.04)",
-//           }}
-//         >
-//           <div style={{ fontSize: 18, fontWeight: 800, color: "#eef2ff" }}>{it.title}</div>
-//           <div style={{ marginTop: 8, color: "#cbd5e1" }}>
-//             <strong>Members:</strong> {it.member}
-//           </div>
-//           <div style={{ marginTop: 6, color: "#9bd6ff" }}>
-//             <strong>Association:</strong> {it.association}
-//           </div>
-//         </motion.div>
-//       ))}
+//     <div aria-hidden style={{ position: "fixed", inset: 0, zIndex: -2 }}>
+//       <div
+//         style={{
+//           position: "absolute",
+//           left: -160,
+//           top: -160,
+//           width: 520,
+//           height: 520,
+//           borderRadius: 9999,
+//           filter: "blur(90px)",
+//           background:
+//             "radial-gradient(circle at 30% 30%, rgba(124,58,237,0.16), rgba(99,102,241,0))",
+//         }}
+//       />
+//       <div
+//         style={{
+//           position: "absolute",
+//           right: -140,
+//           bottom: -140,
+//           width: 520,
+//           height: 520,
+//           borderRadius: 9999,
+//           filter: "blur(84px)",
+//           background:
+//             "radial-gradient(circle at 70% 70%, rgba(14,165,233,0.12), rgba(99,102,241,0))",
+//         }}
+//       />
+//       <div
+//         style={{
+//           position: "absolute",
+//           inset: 0,
+//           background: "rgba(3,7,18,0.82)",
+//         }}
+//       />
 //     </div>
 //   );
 // }
 
 function ScrollStackLocal({ items }) {
   return (
-    <div className="scrollbar h-[60vh] w-full overflow-hidden">
-      <ScrollStack
-        className="w-full h-full "
-        // color background
-
-        
-      >
+    <div className="scrollbar lg:h-[75vh] h-[100vh] w-full overflow-hidden">
+      <ScrollStack>
         {items.map((it, i) => (
           <ScrollStackItem key={i}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full items-center px-8 ">
-              {/* Text card */}
-              <motion.div
-                initial={{ opacity: 0, y: 28, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: i * 0.05 }}
-                className="w-full max-w-4xl mx-auto px-8 py-12 rounded-2xl border border-white/10 bg-white/5 shadow-2xl flex flex-col items-center text-center"
+            <div
+              className="
+                grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10
+                w-full h-full items-center  px-1  sm:px-6 md:px-8
+              "
+            >
+              {/* Text */}
+              <div
+                className="
+                  px-1 py-6 md:px-8 md:py-12
+                  rounded-2xl border border-white/10 bg-white/5 shadow-lg
+                  flex flex-col justify-center
+                  text-center md:text-left
+                  max-w-lg mx-auto md:mx-0
+                "
               >
-                <div className="text-lg font-bold text-indigo-100">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white">
                   {it.title}
-                </div>
-                <div className="mt-2 text-slate-300">
+                </h3>
+                <p className="mt-2 text-white text-sm md:text-base">
                   <strong>Members:</strong> {it.member}
-                </div>
-                <div className="mt-1 text-sky-300">
+                </p>
+                <p className="mt-1 text-[#30cfce] text-sm md:text-base">
                   <strong>Association:</strong> {it.association}
-                </div>
-              </motion.div>
+                </p>
+              </div>
 
               {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, y: 28, scale: 0.995 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, delay: i * 0.04 }}
-                className="flex justify-center"
-              >
+              <div className="flex justify-center mt-6 md:mt-0">
                 <img
                   src={it.img}
                   alt={it.title}
-                  className="w-full max-w-lg h-auto rounded-2xl object-cover"
+                  className="
+                    w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg
+                    rounded-xl object-cover shadow-md
+                  "
                 />
-              </motion.div>
+              </div>
             </div>
           </ScrollStackItem>
         ))}
@@ -389,23 +302,47 @@ export default function ErpPitchDeck() {
     <div
       style={{
         position: "relative",
-        minHeight: "100vh",
+        height: "100vh",
         fontFamily: "Inter, ui-sans-serif, system-ui",
       }}
+      // ref={containerRef}
     >
-      <DarkVeilLocal />
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <DarkVeilLocal
+          hueShift={0}
+          noiseIntensity={0.05}
+          scanlineIntensity={0.15}
+          speed={0.6}
+          warpAmount={0.02}
+        />
+      </div>
 
       <div
         ref={containerRef}
         style={{
-          height: "100vh",
+          // height: "100vh",
           overflowY: "auto",
           scrollSnapType: "y mandatory",
           WebkitOverflowScrolling: "touch",
-          background: "linear-gradient(180deg,#071133,#021024)",
+          // background: "linear-gradient(180deg,#071133,#021024)",
           color: "#eef2ff",
+          position: "relative",
+          zIndex: 10,
         }}
       >
+        {/*  Show logo top left side  */}
+        <div
+          className="mx-auto px-3 pt-3"
+          style={{
+            maxWidth: 1100,
+            width: "100%",
+            display: "grid",
+            alignItems: "center",
+          }}
+        >
+          <img src="images/logo.png" alt="Logo" className="h-12" />
+        </div>
+
         {SLIDES.map((s, idx) => (
           <section
             key={s.id}
@@ -416,7 +353,7 @@ export default function ErpPitchDeck() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "64px 24px",
+              padding: "32px 12px",
               scrollSnapAlign: "start",
               boxSizing: "border-box",
             }}
@@ -426,8 +363,9 @@ export default function ErpPitchDeck() {
                 maxWidth: 1100,
                 width: "100%",
                 display: "grid",
-                gridTemplateColumns: "1fr 520px",
-                gap: 48,
+                gridTemplateColumns:
+                  window.innerWidth < 1024 ? "1fr" : "1fr 520px",
+                gap: window.innerWidth < 1024 ? 24 : 48,
                 alignItems: "center",
               }}
             >
@@ -436,7 +374,11 @@ export default function ErpPitchDeck() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  style={{ fontSize: 40, fontWeight: 800, lineHeight: 1.02 }}
+                  style={{
+                    fontSize: window.innerWidth < 768 ? 28 : 40,
+                    fontWeight: 800,
+                    lineHeight: 1.02,
+                  }}
                 >
                   {s.title}
                 </motion.h2>
@@ -446,14 +388,24 @@ export default function ErpPitchDeck() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.06 }}
-                    style={{ marginTop: 12, color: "#cbd5e1", fontSize: 18 }}
+                    style={{
+                      marginTop: 12,
+                      // color: "#cbd5e1",
+                      fontSize: window.innerWidth < 768 ? 16 : 18,
+                    }}
                   >
                     {s.subtitle}
                   </motion.p>
                 )}
 
                 {s.bullets && (
-                  <ul style={{ marginTop: 18, color: "#c7d2fe", fontSize: 18 }}>
+                  <ul
+                    style={{
+                      marginTop: 18,
+                      // color: "#cbd5e1",
+                      fontSize: window.innerWidth < 768 ? 16 : 18,
+                    }}
+                  >
                     {s.bullets.map((b, i) => (
                       <li key={i} style={{ marginBottom: 10 }}>
                         • {b}
@@ -462,19 +414,32 @@ export default function ErpPitchDeck() {
                   </ul>
                 )}
 
-                {/* {s.id === "features" && (
-                  <div style={{ marginTop: 22 }}>
-                    <ScrollStackLocal items={FEATURES} />
-                  </div>
-                )} */}
                 {s.id === "features" && (
-                  <div className="w-[250%] overflow-hidden">
+                  <div
+                    style={
+                      {
+                        // marginTop: 22,
+                        // width: "210%",
+                        // minHeight: "60vh",
+                        // overflow: "hidden"
+                      }
+                    }
+                    className="lg:w-[210%]  w-full"
+                  >
                     <ScrollStackLocal items={FEATURES} />
                   </div>
                 )}
 
                 {s.id === "commercials" && (
-                  <div style={{ marginTop: 22, display: "flex", gap: 12 }}>
+                  <div
+                    style={{
+                      marginTop: 22,
+                      display: "grid",
+                      gridTemplateColumns:
+                        window.innerWidth < 768 ? "1fr" : "repeat(3, 1fr)",
+                      gap: 12,
+                    }}
+                  >
                     <div
                       style={{
                         padding: 16,
@@ -520,7 +485,13 @@ export default function ErpPitchDeck() {
                       {s.subtitle}
                     </div>
                     <div
-                      style={{ display: "flex", gap: 20, alignItems: "center" }}
+                      style={{
+                        display: "flex",
+                        flexDirection:
+                          window.innerWidth < 768 ? "column" : "row",
+                        gap: 20,
+                        alignItems: "center",
+                      }}
                     >
                       <div
                         style={{
@@ -540,6 +511,9 @@ export default function ErpPitchDeck() {
                           step={1}
                           value={users}
                           onChange={(e) => setUsers(Number(e.target.value))}
+                          style={{
+                            width: window.innerWidth < 768 ? "100%" : "auto",
+                          }}
                         />
                         <div
                           style={{
@@ -557,7 +531,7 @@ export default function ErpPitchDeck() {
                           padding: 20,
                           borderRadius: 12,
                           background: "rgba(255,255,255,0.02)",
-                          minWidth: 260,
+                          minWidth: window.innerWidth < 768 ? "100%" : 260,
                         }}
                       >
                         <div style={{ color: "#94a3b8", fontSize: 13 }}>
@@ -566,7 +540,7 @@ export default function ErpPitchDeck() {
                         <div
                           style={{
                             marginTop: 8,
-                            fontSize: 36,
+                            fontSize: window.innerWidth < 768 ? 28 : 36,
                             fontWeight: 900,
                             color: "#34d399",
                           }}
@@ -601,14 +575,16 @@ export default function ErpPitchDeck() {
                     justifyContent: "center",
                   }}
                 >
-                  <div style={{ width: 560 }}>
+                  <div
+                    style={{ width: window.innerWidth < 1024 ? "100%" : 560 }}
+                  >
                     <div style={{ borderRadius: 12 }}>
                       <div
                         style={{
                           padding: 5,
                           textAlign: "center",
                           color: "#cbd5e1",
-                          minHeight: 140,
+                          minHeight: window.innerWidth < 768 ? 200 : 140,
                         }}
                       >
                         {s.video ? (
@@ -643,7 +619,7 @@ export default function ErpPitchDeck() {
       <div
         style={{
           position: "fixed",
-          right: 28,
+          right: window.innerWidth < 768 ? 12 : 28,
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 40,
@@ -655,10 +631,10 @@ export default function ErpPitchDeck() {
               key={sl.id}
               onClick={() => scrollTo(i)}
               style={{
-                width: active === i ? 72 : 12,
+                width: active === i ? (window.innerWidth < 768 ? 48 : 72) : 12,
                 height: 12,
                 borderRadius: active === i ? 999 : 6,
-                background: active === i ? "#7c3aed" : "rgba(255,255,255,0.06)",
+                background: active === i ? "#7c3aed" : "RGB(198 236 224)",
                 transition: "all 240ms ease",
                 border: "none",
                 cursor: "pointer",
@@ -670,7 +646,6 @@ export default function ErpPitchDeck() {
       </div>
 
       {/* style */}
-
       <style jsx>{`
         .scrollbar {
           scrollbar-width: thin;
