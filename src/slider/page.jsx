@@ -100,7 +100,7 @@ const FEATURES = [
     association:
       "Members convert more; association becomes the growth enabler.",
     placeholder: "[Screenshot: CRM Pipeline]",
-    img: "/images/hero_image.png",
+    img: "/images/hero.png",
   },
   {
     title: "Inventory & Operations",
@@ -332,7 +332,7 @@ export default function ErpPitchDeck() {
       >
         {/*  Show logo top left side  */}
         <div
-          className="mx-auto px-3 pt-3"
+          className=" mx-auto px-3 pt-3"
           style={{
             maxWidth: 1100,
             width: "100%",
@@ -357,6 +357,7 @@ export default function ErpPitchDeck() {
               scrollSnapAlign: "start",
               boxSizing: "border-box",
             }}
+            className="-mt-14"
           >
             <div
               style={{
