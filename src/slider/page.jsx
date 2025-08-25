@@ -24,7 +24,7 @@ const SLIDES = [
     title: "Turn Membership Into Predictable Revenue",
     subtitle:
       "Offer your members a white‑label business platform that accelerates growth, reduces churn, and creates a new monthly income stream for your association.",
-    img: "/images/hero_image.png",
+    img: "/images/hero_image.jpg",
     placeholder: "[Screenshot placeholder — Branded Member Portal]",
   },
   {
@@ -53,7 +53,7 @@ const SLIDES = [
       "Members own their data and can export it anytime",
     ],
     placeholder: "[Screenshot placeholder — Security & Settings]",
-    img: "/images/owner.png",
+    img: "/images/owner.jpg",
   },
   {
     id: "commercials",
@@ -64,7 +64,7 @@ const SLIDES = [
       "Enterprise: dedicated instance & SLAs",
     ],
     placeholder: "[Screenshot placeholder — Pricing Tiers]",
-    img: "/images/Commercial.png",
+    img: "/images/Commercial.jpg",
   },
   {
     id: "revenue",
@@ -72,7 +72,7 @@ const SLIDES = [
     subtitle:
       "Drag to estimate members and see the monthly and yearly revenue (association gross).",
     placeholder: "[Screenshot placeholder — Instant Revenue Estimator]",
-    img: "/images/Revenue.png",
+    img: "/images/Revenue.jpg",
   },
   {
     id: "pilot",
@@ -100,14 +100,14 @@ const FEATURES = [
     association:
       "Members convert more; association becomes the growth enabler.",
     placeholder: "[Screenshot: CRM Pipeline]",
-    img: "/images/hero.png",
+    img: "/images/hero.jpg",
   },
   {
     title: "Inventory & Operations",
     member: "Stock control, order management, and shipment visibility.",
     association: "Operational efficiency reduces churn and support load.",
     placeholder: "[Screenshot: Stock & Orders]",
-    img: "/images/helpingdesk.png",
+    img: "/images/helpingdesk.jpg",
   },
   {
     title: "People & Payroll",
@@ -115,7 +115,7 @@ const FEATURES = [
     association:
       "Compliance becomes simpler for members, strengthening trust in your benefits.",
     placeholder: "[Screenshot: Payroll & HR]",
-    img: "/images/payroll.png",
+    img: "/images/payroll.jpg",
   },
   {
     title: "Reports & Insights",
