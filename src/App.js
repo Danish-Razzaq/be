@@ -1,16 +1,31 @@
-import React from 'react'
-import HeroSection from './HeroSection'
-import Slider from './slider/page'
-import DarkVeil from './Components/DarkVeil/DarkVeil'
+import React from "react";
+import HeroSection from "./HeroSection";
+import Slider from "./slider/page";
+import DarkVeil from "./Components/DarkVeil/DarkVeil";
+import MobileScreenPage from "./Components/MobileScreenPage.jsx";
 
 const App = () => {
-  return (
-   <div >
-  {/* <DarkVeil /> */}
-      {/* <HeroSection /> */}
-      <Slider />
-    </div>
-  )
-}
+  const [isMobile, setIsMobile] = React.useState(false);
 
-export default App
+  // if screen is less then 700px then show this mobile screen page
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <>
+      {isMobile ? <MobileScreenPage /> : <Slider />}
+    </>
+  );
+};
+
+export default App;
