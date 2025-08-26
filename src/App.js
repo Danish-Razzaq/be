@@ -10,7 +10,7 @@ const App = () => {
   // if screen is less then 700px then show this mobile screen page
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 900);
+      setIsMobile(window.innerWidth < 1000);
     };
 
     window.addEventListener("resize", handleResize);
