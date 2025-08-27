@@ -58,11 +58,11 @@ const SLIDES = [
   {
     id: "commercials",
     title: "Commercial Options (high level)",
-    bullets: [
-      "Foundation: flat per-company fee",
-      "Growth: tiered pricing + onboarding",
-      "Enterprise: dedicated instance & SLAs",
-    ],
+    // bullets: [
+    //   "Foundation: flat per-company fee",
+    //   "Growth: tiered pricing + onboarding",
+    //   "Enterprise: dedicated instance & SLAs",
+    // ],
     placeholder: "[Screenshot placeholder — Pricing Tiers]",
     img: "/images/Commercial.jpg",
   },
@@ -483,7 +483,7 @@ export default function ErpPitchDeck() {
                 {s.id === "revenue" && (
                   <div style={{ marginTop: 20 }}>
                     <div style={{ color: "white", marginBottom: 8 }}>
-                      {s.subtitle}
+                      {/* {s.subtitle} */}
                     </div>
                     <div
                       style={{
@@ -558,9 +558,9 @@ export default function ErpPitchDeck() {
                             fontSize: 13,
                           }}
                         >
-                          Example: present this gross number to members as an
+                          {/* Example: present this gross number to members as an
                           association benefit. Operator fees are negotiated
-                          privately.
+                          privately. */}
                         </div>
                       </div>
                     </div>
