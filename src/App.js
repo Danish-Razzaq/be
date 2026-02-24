@@ -164,12 +164,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF6B00] to-orange-400 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-            G
-          </div>
-          <span className="text-xl font-bold tracking-tight text-[#0A192F] dark:text-white">
-            Gama<span className="text-[#FF6B00]">Suite</span>
-          </span>
+        <img src="/logo.svg" alt="GamaCenter Logo" className="w-18 h-18 object-contain" />
         </div>
 
         {/* Desktop Links */}
@@ -347,7 +342,7 @@ const Marquee = () => {
         {marqueeItems.map((logo, idx) => (
           <div key={idx} className="flex items-center space-x-2 mx-8 text-gray-400 dark:text-gray-600 hover:text-[#0A192F] dark:hover:text-cyan-400 transition-colors duration-300 cursor-pointer grayscale hover:grayscale-0">
              {logo.icon}
-             <span className="text-xl font-bold font-sans">{logo.name}</span>
+             {/* <span className="text-xl font-bold font-sans">{logo.name}</span> */}
           </div>
         ))}
       </div>
@@ -474,8 +469,9 @@ const BeforeAfterSlider = () => {
                    {/* Left Sidebar */}
                    <div className="hidden md:flex w-48 lg:w-56 bg-gray-50/90 dark:bg-[#040812]/90 border-r border-gray-200 dark:border-cyan-900/40 flex-col py-5 z-10">
                       <div className="px-5 flex items-center gap-3 mb-8">
-                         <div className="w-6 h-6 rounded bg-[#FF6B00] flex items-center justify-center text-white font-bold text-xs">G</div>
-                         <span className="text-gray-900 dark:text-white font-bold text-sm tracking-wide">GAMASUITE</span>
+                         {/* <div className="w-6 h-6 rounded bg-[#FF6B00] flex items-center justify-center text-white font-bold text-xs">G</div>
+                         <span className="text-gray-900 dark:text-white font-bold text-sm tracking-wide">GAMASUITE</span> */}
+                         <img src="/logo.svg" alt="GamaCenter Logo" className="w-10 h-10 object-contain" />
                       </div>
                       <div className="flex-1 px-3 space-y-1">
                          {sidebarMenu.map((item, i) => (
@@ -1000,7 +996,7 @@ const Integrations = () => {
   <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-white flex items-center justify-center animate-pulse-slow border-4 border-white dark:border-[#0A192F]">
     
     <img
-      src="/logo.svg"
+      src="/gamacenter.svg"
       alt="Logo"
       className="w-20 h-20 md:w-28 md:h-28 object-contain"
     />
@@ -1344,12 +1340,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
              <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-[#FF6B00] flex items-center justify-center text-white font-bold text-xl">
-                G
-              </div>
-              <span className="text-xl font-bold tracking-tight text-[#0A192F] dark:text-white">
-                Gama<span className="text-[#FF6B00]">Suite</span>
-              </span>
+              <img src="/logo.svg" alt="GamaCenter Logo" className="w-18 h-18 object-contain" />
             </div>
             <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
               The operating system for modern freight forwarders. Elevate your customer experience today.
