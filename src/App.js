@@ -990,12 +990,23 @@ const Integrations = () => {
             ))}
 
             {/* Central Gama Node */}
-            <div className="absolute z-30 flex flex-col items-center justify-center">
+            {/* <div className="absolute z-30 flex flex-col items-center justify-center">
               <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-[#FF6B00] to-orange-500 shadow-[0_0_80px_rgba(255,107,0,0.5)] flex flex-col items-center justify-center animate-pulse-slow border-4 border-white dark:border-[#0A192F]">
                 <span className="text-white font-black text-4xl md:text-6xl tracking-tight mb-1">Gama</span>
                 <span className="text-orange-100 text-sm md:text-base font-bold tracking-[0.3em] uppercase">Suite</span>
               </div>
-            </div>
+            </div> */}
+            <div className="absolute z-30 flex flex-col items-center justify-center">
+  <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-white flex items-center justify-center animate-pulse-slow border-4 border-white dark:border-[#0A192F]">
+    
+    <img
+      src="/logo.svg"
+      alt="Logo"
+      className="w-20 h-20 md:w-28 md:h-28 object-contain"
+    />
+
+  </div>
+</div>
             
           </div>
         </div>
