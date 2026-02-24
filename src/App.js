@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   Moon, Sun, Play, ChevronRight, Zap, Box, Map, ShieldCheck, 
   LineChart, ArrowRight, Menu, X, CheckCircle2, Star,
-  Smartphone, Globe, Anchor, Plane, Truck, FileText, Bell,
-  Mail, FileSpreadsheet, AlertTriangle, Activity,
+  Globe, Anchor, Plane, Truck, FileText, Bell,
+  Mail, FileSpreadsheet, AlertTriangle,
   LayoutDashboard, Search, DollarSign, RefreshCw
 } from 'lucide-react';
 
@@ -24,7 +24,7 @@ const useScrollReveal = (options = { threshold: 0.1 }) => {
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [options.threshold]);
+  }, [options]);
 
   return [ref, isVisible];
 };
@@ -1357,14 +1357,14 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-[#0A192F] dark:text-white mb-6">Platform</h4>
             <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
-              {['Features', 'Integrations', 'Security', 'Pricing'].map(l => <li key={l}><a href="#" className="hover:text-[#FF6B00] transition-colors">{l}</a></li>)}
+              {['Features', 'Integrations', 'Security', 'Pricing'].map(l => <li key={l}><a href="javascript:void(0)" className="hover:text-[#FF6B00] transition-colors">{l}</a></li>)}
             </ul>
           </div>
           
           <div>
             <h4 className="font-bold text-[#0A192F] dark:text-white mb-6">Company</h4>
             <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
-              {['About Us', 'Careers', 'Blog', 'Contact'].map(l => <li key={l}><a href="#" className="hover:text-[#FF6B00] transition-colors">{l}</a></li>)}
+              {['About Us', 'Careers', 'Blog', 'Contact'].map(l => <li key={l}><a href="javascript:void(0)" className="hover:text-[#FF6B00] transition-colors">{l}</a></li>)}
             </ul>
           </div>
           
