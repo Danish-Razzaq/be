@@ -471,7 +471,7 @@ const BeforeAfterSlider = () => {
                       <div className="px-5 flex items-center gap-3 mb-8">
                          {/* <div className="w-6 h-6 rounded bg-[#FF6B00] flex items-center justify-center text-white font-bold text-xs">G</div>
                          <span className="text-gray-900 dark:text-white font-bold text-sm tracking-wide">GAMASUITE</span> */}
-                         <img src="/logo.svg" alt="GamaCenter Logo" className="w-10 h-10 object-contain" />
+                         <img src="/logo.svg" alt="GamaCenter Logo" className="w-18 h-18 object-contain" />
                       </div>
                       <div className="flex-1 px-3 space-y-1">
                          {sidebarMenu.map((item, i) => (
